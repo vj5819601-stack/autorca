@@ -1,53 +1,43 @@
 # AutoRCA
 
-### AI-powered Production Failure Reproduction & Root Cause Analysis Engine
+AI-powered Production Failure Reproduction and Root Cause Analysis Engine.
 
-AutoRCA is an intelligent software engineering platform designed to help development teams investigate production incidents faster.
+## 📌 Overview
 
-## 🚨 Problem
+AutoRCA is a lightweight Root Cause Analysis (RCA) engine designed to analyze production failure logs and identify possible causes of system failures.
 
-When a production system fails, engineers often need to manually investigate:
+The system parses production logs, classifies errors, analyzes possible root causes, and generates a structured RCA report with confidence scores and supporting evidence.
 
-- Application logs
-- System metrics
-- Distributed traces
-- Recent deployments
-- Git commits
-- Service dependencies
-- Previous incidents
+## 🚀 Features
 
-This investigation can take significant engineering time.
+- Production log parsing
+- Error classification
+- Automated root cause analysis
+- Root cause confidence scoring
+- Evidence-based analysis
+- Automated test suite
+- Modular Python architecture
 
-## 💡 Our Goal
-
-AutoRCA aims to automatically correlate these signals and identify the most probable root cause of a production incident.
-
-The system will eventually provide:
-
-1. Incident detection
-2. Anomaly detection
-3. Distributed trace analysis
-4. Git change analysis
-5. Root cause ranking
-6. Evidence-based AI explanation
-7. Failure reproduction
-8. Automated regression test generation
-
-## 🏗️ Planned Architecture
+## 🏗️ Project Structure
 
 ```text
-Logs ───────────────┐
-                    │
-Metrics ────────────┤
-                    │
-Traces ─────────────┤
-                    ├──► Root Cause Engine
-Git Changes ────────┤             │
-                    │             ▼
-Incident History ───┘       AI Explanation
-                                  │
-                                  ▼
-                         Failure Reproduction
-                                  │
-                                  ▼
-                       Regression Test Generation
+autorca/
+│
+├── data/
+│
+├── docs/
+│
+├── src/
+│   ├── __init__.py
+│   ├── log_parser.py
+│   ├── root_cause_engine.py
+│   └── main.py
+│
+├── tests/
+│   ├── test_autorca.py
+│   └── test_log_parser.py
+│
+├── .env.example
+├── .gitignore
+├── requirements.txt
+└── README.md
