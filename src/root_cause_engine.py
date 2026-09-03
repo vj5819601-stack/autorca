@@ -93,7 +93,7 @@ ROOT_CAUSES = {
 
 def analyze_root_cause(category: str, message: str = "") -> list:
     """
-    Analyze possible root causes using both error category
+    Analyze possible root causes using error category
     and keywords found in the log message.
     """
 
@@ -113,12 +113,24 @@ def analyze_root_cause(category: str, message: str = "") -> list:
         if matched_keywords:
             score = min(score + 0.10, 0.99)
 
+        if matched_keywords:
+            explanation = (
+                f"The log contains '{matched_keywords[0]}', "
+                f"which supports the root cause '{cause['cause']}'."
+            )
+        else:
+            explanation = (
+                f"The error category '{category}' is associated "
+                f"with this possible root cause."
+            )
+
         ranked_causes.append(
             {
                 "cause": cause["cause"],
                 "score": score,
                 "evidence": cause["evidence"],
-                "matched_keywords": matched_keywords
+                "matched_keywords": matched_keywords,
+                "explanation": explanation
             }
         )
 
@@ -150,3 +162,5 @@ if __name__ == "__main__":
                 f"   Matched Keywords: "
                 f"{', '.join(result['matched_keywords'])}"
             )
+
+        print(f"   Why: {result['explanation']}")

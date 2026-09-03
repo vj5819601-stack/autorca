@@ -52,6 +52,8 @@ def display_report(result: dict) -> None:
                 f"{', '.join(cause['matched_keywords'])}"
             )
 
+        print(f"   Why: {cause['explanation']}")
+
 
 def load_logs_from_csv(file_path: str) -> list:
     logs = []
