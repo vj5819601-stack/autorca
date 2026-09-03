@@ -82,3 +82,42 @@ def generate_incident_summary(log_lines: list) -> dict:
             else 0
         ),
     }
+def identify_likely_root_cause(log_lines: list) -> dict:
+    """
+    Identify the most likely root cause from multiple logs
+    using the dominant error category.
+    """
+
+    analysis = analyze_multiple_logs(log_lines)
+
+    category = analysis["most_common_category"]
+
+    category_counts = analysis["category_counts"]
+
+    if category == "UNKNOWN":
+        return {
+            "root_cause": "Unknown",
+            "reason": "No recognized error pattern was found."
+        }
+
+    root_cause_map = {
+        "DATABASE": "Database-related failure",
+        "NETWORK": "Network or downstream service failure",
+        "MEMORY": "Memory exhaustion or resource pressure",
+        "AUTHENTICATION": "Authentication or authorization failure",
+    }
+
+    root_cause = root_cause_map.get(
+        category,
+        "Unknown root cause"
+    )
+
+    return {
+        "root_cause": root_cause,
+        "category": category,
+        "category_count": category_counts.get(category, 0),
+        "reason": (
+            f"The {category} category appears most frequently "
+            f"in the analyzed logs."
+        )
+    }
