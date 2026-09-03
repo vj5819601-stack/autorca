@@ -1,17 +1,21 @@
 timestamp,level,service,message,category
 2026-08-26 10:31:22,ERROR,PaymentService,Database connection timeout,DATABASE
+2026-08-26 10:31:40,ERROR,PaymentService,Database unavailable,DATABASE
 2026-08-26 10:32:10,ERROR,APIGateway,Connection refused by downstream service,NETWORK
-2026-08-26 10:33:05,ERROR,UserService,Out of memory while processing request,MEMORY
-2026-08-26 10:34:18,ERROR,AuthService,Authentication failed for user,AUTHENTICATION
-2026-08-26 10:35:42,ERROR,PaymentService,SQL error while executing transaction,DATABASE
-2026-08-26 10:36:11,ERROR,APIGateway,DNS failure while resolving service,NETWORK
-2026-08-26 10:37:29,ERROR,UserService,Memory limit exceeded,MEMORY
-2026-08-26 10:38:44,ERROR,AuthService,Invalid token received,AUTHENTICATION
-2026-08-26 10:39:16,ERROR,PaymentService,Database unavailable,DATABASE
-2026-08-26 10:40:03,ERROR,APIGateway,Connection reset by peer,NETWORK
-2026-08-26 10:41:27,ERROR,UserService,Heap exhausted during request,MEMORY
-2026-08-26 10:42:51,ERROR,AuthService,Access denied for API request,AUTHENTICATION
-2026-08-26 10:43:32,ERROR,PaymentService,Connection timeout to database,DATABASE
-2026-08-26 10:44:09,ERROR,APIGateway,Network error detected,NETWORK
-2026-08-26 10:45:37,ERROR,UserService,Out of memory condition detected,MEMORY
-2026-08-26 10:46:20,ERROR,AuthService,Unauthorized API request,AUTHENTICATION
+2026-08-26 10:32:30,ERROR,UserService,Out of memory while processing request,MEMORY
+2026-08-26 10:33:05,ERROR,AuthService,Authentication failed for user,AUTHENTICATION
+2026-08-26 10:33:25,ERROR,PaymentService,SQL error while executing transaction,DATABASE
+2026-08-26 10:33:40,ERROR,APIGateway,DNS failure while resolving service,NETWORK
+2026-08-26 10:34:10,ERROR,UserService,Memory limit exceeded,MEMORY
+2026-08-26 10:34:30,ERROR,AuthService,Invalid token received,AUTHENTICATION
+2026-08-26 10:35:05,ERROR,PaymentService,Connection timeout to database,DATABASE
+2026-08-26 10:35:20,ERROR,APIGateway,Connection reset by peer,NETWORK
+2026-08-26 10:35:45,ERROR,UserService,Heap exhausted during request,MEMORY
+2026-08-26 10:36:10,ERROR,AuthService,Access denied for API request,AUTHENTICATION
+2026-08-26 10:36:25,ERROR,PaymentService,Connection pool exhausted,DATABASE
+2026-08-26 10:36:40,ERROR,APIGateway,Network error detected,NETWORK
+2026-08-26 10:37:00,ERROR,UserService,Out of memory condition detected,MEMORY
+2026-08-26 10:37:20,ERROR,AuthService,Unauthorized API request,AUTHENTICATION
+2026-08-26 10:37:40,ERROR,PaymentService,Database connection timeout,DATABASE
+2026-08-26 10:38:00,ERROR,PaymentService,Slow query detected,DATABASE
+2026-08-26 10:38:20,ERROR,APIGateway,Gateway timeout from downstream service,NETWORK

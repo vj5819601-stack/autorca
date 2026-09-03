@@ -7,4 +7,4 @@ venv/
 .coverage
 htmlcov/
 .vscode/
-tempCodeRunnerFile.py
+reports/*.json
