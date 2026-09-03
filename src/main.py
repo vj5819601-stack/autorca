@@ -1,17 +1,16 @@
+import csv
+
 from log_parser import parse_log
 from root_cause_engine import analyze_root_cause
 
 
 def analyze_log(log_line: str) -> dict:
-    """
-    Run the complete AutoRCA analysis pipeline.
-    """
-
     parsed = parse_log(log_line)
 
     category = parsed["category"]
+    message = parsed["message"]
 
-    root_causes = analyze_root_cause(category)
+    root_causes = analyze_root_cause(category, message)
 
     return {
         "log": parsed,
@@ -20,8 +19,6 @@ def analyze_log(log_line: str) -> dict:
 
 
 def display_report(result: dict) -> None:
-    """Display the AutoRCA diagnosis."""
-
     log = result["log"]
     root_causes = result["root_causes"]
 
@@ -46,16 +43,42 @@ def display_report(result: dict) -> None:
             f"{index}. {cause['cause']} "
             f"| Score: {cause['score']:.2f}"
         )
+
         print(f"   Evidence: {cause['evidence']}")
+
+        if cause["matched_keywords"]:
+            print(
+                f"   Matched Keywords: "
+                f"{', '.join(cause['matched_keywords'])}"
+            )
+
+
+def load_logs_from_csv(file_path: str) -> list:
+    logs = []
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            log_line = (
+                f"{row['timestamp']} "
+                f"{row['level']} "
+                f"{row['service']} "
+                f"{row['message']}"
+            )
+
+            logs.append(log_line)
+
+    return logs
 
 
 if __name__ == "__main__":
+    csv_file = "data/sample_logs.csv"
 
-    sample_log = (
-        "2026-08-26 10:31:22 ERROR "
-        "PaymentService Database connection timeout"
-    )
+    logs = load_logs_from_csv(csv_file)
 
-    result = analyze_log(sample_log)
+    print(f"\nLoaded {len(logs)} logs from dataset.")
 
-    display_report(result)
+    for log in logs:
+        result = analyze_log(log)
+        display_report(result)
