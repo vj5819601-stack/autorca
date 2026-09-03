@@ -59,3 +59,26 @@ def identify_affected_services(log_lines: list) -> list:
         }
         for service, count in service_counts.most_common()
     ]
+def generate_incident_summary(log_lines: list) -> dict:
+    """
+    Generate a high-level incident summary from multiple logs.
+    """
+
+    analysis = analyze_multiple_logs(log_lines)
+    affected_services = identify_affected_services(log_lines)
+
+    return {
+        "total_logs": analysis["total_logs"],
+        "most_common_category": analysis["most_common_category"],
+        "category_counts": analysis["category_counts"],
+        "most_affected_service": (
+            affected_services[0]["service"]
+            if affected_services
+            else "UNKNOWN"
+        ),
+        "service_error_count": (
+            affected_services[0]["error_count"]
+            if affected_services
+            else 0
+        ),
+    }
