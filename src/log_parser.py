@@ -1,36 +1,42 @@
 import re
 
-
 ERROR_PATTERNS = {
     "DATABASE": [
         "database connection",
         "connection timeout",
         "sql error",
         "database unavailable",
+        "connection pool",
+        "query error",
+        "timeout to database",
     ],
     "NETWORK": [
         "connection refused",
         "network error",
         "dns failure",
         "connection reset",
+        "downstream service",
+        "dns",
     ],
     "MEMORY": [
         "out of memory",
         "memory limit",
         "heap exhausted",
+        "memory leak",
     ],
     "AUTHENTICATION": [
         "authentication failed",
         "unauthorized",
         "invalid token",
         "access denied",
+        "invalid credentials",
+        "expired token",
     ],
 }
 
 
 def classify_error(message: str) -> str:
-    """Classify a production error into a high-level category."""
-
+    """Classify a log message into a high-level error category."""
     message_lower = message.lower()
 
     for category, patterns in ERROR_PATTERNS.items():
@@ -42,8 +48,7 @@ def classify_error(message: str) -> str:
 
 
 def parse_log(log_line: str) -> dict:
-    """Parse a production log line."""
-
+    """Parse a log line into timestamp, level, service, message and category."""
     pattern = (
         r"(?P<timestamp>\S+\s+\S+)\s+"
         r"(?P<level>\w+)\s+"
@@ -51,7 +56,7 @@ def parse_log(log_line: str) -> dict:
         r"(?P<message>.+)"
     )
 
-    match = re.match(pattern, log_line)
+    match = re.match(pattern, log_line.strip())
 
     if not match:
         return {
@@ -71,19 +76,3 @@ def parse_log(log_line: str) -> dict:
         "message": data["message"],
         "category": classify_error(data["message"]),
     }
-
-
-if __name__ == "__main__":
-
-    sample_log = (
-        "2026-08-26 10:31:22 ERROR "
-        "PaymentService Database connection timeout"
-    )
-
-    result = parse_log(sample_log)
-
-    print("\nAutoRCA Log Analysis")
-    print("--------------------")
-
-    for key, value in result.items():
-        print(f"{key}: {value}")
